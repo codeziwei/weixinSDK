@@ -64,11 +64,19 @@ namespace Deepleo.Web.Controllers
 
             if (content.return_code.Value == "SUCCESS" && content.result_code.Value == "SUCCESS")
             {
+                //最后参与签名的参数有appId, timeStamp, nonceStr, package, signType。
+                Dictionary<string, string> dic = new Dictionary<string, string>();
+                dic.Add("appId", WeixinConfig.AppID);
+                dic.Add("timeStamp", timestamp.ToString());
+                dic.Add("nonceStr", nonceStr);
+                dic.Add("package", "prepay_id=" + content.prepay_id.Value);
+                dic.Add("signType", "MD5");
+                var sign= WxPayAPI.Sign(dic, partnerKey)
                 var result = new
                 {
                     prepay_id = content.prepay_id.Value,
                     trade_type = content.trade_type.Value,
-                    sign = content.sign.Value,
+                    sign = sign,
                     nonce_str = content.nonce_str.Value,
                     return_code = content.result_code.Value,
                     return_msg = "",
