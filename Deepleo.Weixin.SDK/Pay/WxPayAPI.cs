@@ -270,7 +270,7 @@ namespace Deepleo.Weixin.SDK.Pay
 
             var sign = Sign(stringADict, partnerKey);//生成签名字符串
             var postdata = PayUtil.GeneralPostdata(stringADict, sign);
-            var url = "https://api.mch.weixin.qq.com/pay/refundquery";
+            var url = "https://api.mch.weixin.qq.com/pay/downloadbill";
             var client = new HttpClient();
             var result = client.PostAsync(url, new StringContent(postdata)).Result;
             if (!result.IsSuccessStatusCode) return string.Empty;
@@ -332,7 +332,7 @@ namespace Deepleo.Weixin.SDK.Pay
 
             var sign = Sign(stringADict, partnerKey);//生成签名字符串
             var postdata = PayUtil.GeneralPostdata(stringADict, sign);
-            var url = "https://api.mch.weixin.qq.com/pay/refundquery";
+            var url = "https://api.mch.weixin.qq.com/pay/report";
             var client = new HttpClient();
             var result = client.PostAsync(url, new StringContent(postdata)).Result;
             if (!result.IsSuccessStatusCode) return string.Empty;
